@@ -8,7 +8,7 @@ import {IComments} from "./interfaces";
 
 function App() {
 
-    const {messages, loading} = useMessages()
+    const {messages, loading, error} = useMessages()
 
     return (
         <div>
@@ -16,6 +16,7 @@ function App() {
                 <FormSend/>
             </div>
             {loading && <h2>Loading...</h2>}
+            {error && <h2>{error}</h2>}
             {messages.map((msg: IComments, i: number) => <ClientText name={msg.username} text={msg.text} key={i}/>)}
         </div>
     );

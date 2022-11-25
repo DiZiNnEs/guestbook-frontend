@@ -1,24 +1,33 @@
 import {useEffect, useState} from "react";
 import {IComments} from "../../interfaces";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 
-function useMessages(): { messages: IComments[], loading: boolean } {
+function useMessages(): { messages: IComments[], loading: boolean, error: string } {
     const [messages, setMessages] = useState<IComments[]>([])
     const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState('')
 
     async function fetchComments() {
-        setLoading(true)
-        const result = await axios.get<IComments[]>('http://localhost:8000/api/v1/comments')
-        console.log(result)
-        setMessages(result.data)
-        setLoading(false)
+        setError('')
+
+        try {
+            setLoading(true)
+            const result = await axios.get<IComments[]>('http://localhost:8000/api/v1/comments')
+            console.log(result)
+            setMessages(result.data)
+        } catch (e: unknown) {
+            const error = e as AxiosError
+            setError(error.message)
+        } finally {
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
         fetchComments()
     }, [])
 
-    return {messages, loading}
+    return {messages, loading, error}
 }
 
 export default useMessages
