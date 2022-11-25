@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 
-function TextControlsExample() {
+function FormSend() {
     return (
         <Form className="col-md-4 col-md-offset-4">
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -15,4 +15,4 @@ function TextControlsExample() {
     );
 }
 
-export default TextControlsExample;
+export default FormSend;
