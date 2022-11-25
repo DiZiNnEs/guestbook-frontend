@@ -1,35 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import {Badge, Stack, Button} from "react-bootstrap";
+import React from 'react';
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormSend from "./components/FormSend";
 import ClientText from "./components/ClientText";
-import axios from "axios";
+import useMessages from "./components/hooks/useMessages";
 import {IComments} from "./interfaces";
 
 function App() {
-    const [messages, setMessages] = useState([])
 
-
-    async function fetchComments() {
-        const result = await axios.get<IComments[]>('http://localhost:8000/api/v1/comments')
-        setMessages(result.data)
-    }
-
-    useEffect(() => {
-
-    })
+    const {messages, loading} = useMessages()
 
     return (
         <div>
             <div className="App mx-auto max-w-6xl pt-5 position-relative left-1/5">
                 <FormSend/>
-                <Button as="a" variant="primary" className='col-md-4 col-md-offset-4'>
-                    Отправить
-                </Button>
             </div>
-
-            <ClientText name='Андрей' text='Hello, Andrei'></ClientText>
+            {loading && <h2>Loading...</h2>}
+            {messages.map((msg: IComments, i: number) => <ClientText name={msg.username} text={msg.text} key={i}/>)}
         </div>
     );
 }
