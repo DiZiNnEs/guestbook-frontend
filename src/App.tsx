@@ -1,17 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Badge, Stack, Button} from "react-bootstrap";
+import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TextControlsExample from "./services/TextControlsExample";
+import FormSend from "./components/FormSend";
+import ClientText from "./components/ClientText";
+import axios from "axios";
+import {IComments} from "./interfaces";
 
 function App() {
-    const [count, setCount] = useState(0)
+    const [messages, setMessages] = useState([])
+
+
+    async function fetchComments() {
+        const result = await axios.get<IComments[]>('http://localhost:8000/api/v1/comments')
+        setMessages(result.data)
+    }
+
+    useEffect(() => {
+
+    })
+
     return (
-        <div className="App">
-            <h1>Hello {count}</h1>
-            <TextControlsExample />
-            <Button as="a" variant="primary" className='col-md-4 col-md-offset-4' onClick={() => setCount(count + 1)}>
-                Отправить
-            </Button>
+        <div>
+            <div className="App mx-auto max-w-6xl pt-5 position-relative left-1/5">
+                <FormSend/>
+                <Button as="a" variant="primary" className='col-md-4 col-md-offset-4'>
+                    Отправить
+                </Button>
+            </div>
+
+            <ClientText name='Андрей' text='Hello, Andrei'></ClientText>
         </div>
     );
 }
