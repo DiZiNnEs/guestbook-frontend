@@ -21,7 +21,7 @@ function FormSend() {
     }
 
     return (
-        <Form className="col-md-4 col-md-offset-4">
+        <Form className="content-center">
             <h1>{name}</h1>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>Ваше имя</Form.Label>
