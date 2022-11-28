@@ -2,13 +2,14 @@ import Form from 'react-bootstrap/Form';
 import {Button} from "react-bootstrap";
 import React, {useState} from "react";
 import axios from "axios";
+import {apiEndpoint} from "../cfg";
 
 function FormSend() {
     const [name, setName] = useState('')
     const [text, setText] = useState('')
 
     async function sendMessages() {
-        const response = await axios.post('http://localhost:8000/api/v1/comments', {
+        const response = await axios.post(`${apiEndpoint}/api/v1/comments`, {
             username: name,
             comments: text
         }, {

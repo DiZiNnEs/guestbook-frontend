@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {IComments} from "../../interfaces";
 import axios, {AxiosError} from "axios";
+import {apiEndpoint} from "../../cfg";
 
 function useMessages(): { messages: IComments[], loading: boolean, error: string } {
     const [messages, setMessages] = useState<IComments[]>([])
@@ -12,7 +13,7 @@ function useMessages(): { messages: IComments[], loading: boolean, error: string
 
         try {
             setLoading(true)
-            const result = await axios.get<IComments[]>('http://localhost:8000/api/v1/comments')
+            const result = await axios.get<IComments[]>(`${apiEndpoint}/api/v1/comments`)
             console.log(result)
             setMessages(result.data)
         } catch (e: unknown) {
