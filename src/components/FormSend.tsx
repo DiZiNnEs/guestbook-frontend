@@ -30,7 +30,7 @@ function FormSend() {
                 <Form.Label>Ваш текст</Form.Label>
                 <Form.Control as="textarea" rows={5} value={text} onChange={(event) => setText(event.target.value)}/>
             </Form.Group>
-            <Button as="a" variant="primary" className='col-md-4 col-md-offset-4' onClick={sendMessages}>
+            <Button as="a" variant="primary" className='col-md-4 col-md-offset-4' type='button' onClick={sendMessages}>
                 Отправить
             </Button>
         </Form>
