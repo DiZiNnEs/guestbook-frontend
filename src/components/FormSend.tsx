@@ -17,28 +17,38 @@ function FormSend() {
     const [formValid, setFormValid] = useState(false)
 
     useEffect(() => {
-        if (usernameError || commentError)
+        console.log({usernameError})
+        console.log({commentError})
+        if (usernameError || commentError) {
             setFormValid(false)
-        else
+            console.log('поставлися', false)
+        }
+        else {
             setFormValid(true)
-    }, [usernameError, commentError])
+            console.log('поставлися', true)
+        }
+
+        console.log(formValid, 'validForm')
+    }, [usernameError, commentError, formValid])
 
     async function sendMessages() {
-        const response = await axios.post(`${apiEndpoint}/api/v1/comments`, {
-            username: username,
-            comments: comment
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            }
-        })
+        if (formValid) {
+            const response = await axios.post(`${apiEndpoint}/api/v1/comments`, {
+                username: username,
+                comments: comment
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                }
+            })
 
-        if (response.status === 200) {
-            console.log('Данные успешно добавлены')
-            setComment('')
-        } else {
-            console.log('Данные не были добавлены')
+            if (response.status === 200) {
+                console.log('Данные успешно добавлены')
+                setComment('')
+            } else {
+                console.log('Данные не были добавлены')
+            }
         }
     }
 
@@ -82,6 +92,19 @@ function FormSend() {
             setCommentError('')
         }
     }
+
+    const keydownHandler = async (e: any) => {
+        if (e.key === 'Enter' && e.ctrlKey) await sendMessages()
+
+    };
+
+
+    React.useEffect(() => {
+        document.addEventListener('keydown', keydownHandler);
+        return () => {
+            document.removeEventListener('keydown', keydownHandler);
+        }
+    }, [keydownHandler]);
 
     return (
         <Form className="content-center p-4">
