@@ -8,12 +8,16 @@ import {IComments} from "./interfaces";
 
 function App() {
 
-    const {messages, loading, error} = useMessages()
+    const {messages, setMessages, loading, error} = useMessages()
+
+    function handleCallback(childData: any) {
+        setMessages((oldMessages) => [childData, ...oldMessages]);
+    }
 
     return (
         <div>
             <div className="App mx-auto max-w-6xl pt-5 position-relative left-1/5">
-                <FormSend/>
+                <FormSend parentCallback={handleCallback}/>
             </div>
             {loading && <h2>Loading...</h2>}
             {error && <h2>{error}</h2>}

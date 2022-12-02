@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {IComments} from "../../interfaces";
 import axios, {AxiosError} from "axios";
 import {apiEndpoint} from "../../cfg";
 
-function useMessages(): { messages: IComments[], loading: boolean, error: string } {
+function useMessages(): { messages: IComments[], setMessages: React.Dispatch<React.SetStateAction<IComments[]>>, loading: boolean, error: string } {
     const [messages, setMessages] = useState<IComments[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState('')
@@ -28,7 +28,7 @@ function useMessages(): { messages: IComments[], loading: boolean, error: string
         fetchComments()
     }, [])
 
-    return {messages, loading, error}
+    return {messages, setMessages, loading, error}
 }
 
 export default useMessages

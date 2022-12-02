@@ -3,8 +3,9 @@ import {Button} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {apiEndpoint} from "../cfg";
+import Snackbar from "./tools/Snackbar";
 
-function FormSend() {
+function FormSend(props: any) {
     const [username, setUsername] = useState('')
     const [comment, setComment] = useState('')
 
@@ -22,8 +23,7 @@ function FormSend() {
         if (usernameError || commentError) {
             setFormValid(false)
             console.log('поставлися', false)
-        }
-        else {
+        } else {
             setFormValid(true)
             console.log('поставлися', true)
         }
@@ -32,6 +32,7 @@ function FormSend() {
     }, [usernameError, commentError, formValid])
 
     async function sendMessages() {
+        setIsSnackbarShown(true)
         if (formValid) {
             const response = await axios.post(`${apiEndpoint}/api/v1/comments`, {
                 username: username,
@@ -46,10 +47,14 @@ function FormSend() {
             if (response.status === 200) {
                 console.log('Данные успешно добавлены')
                 setComment('')
+                props.parentCallback(response.data);
+
             } else {
                 console.log('Данные не были добавлены')
             }
         }
+
+        setIsSnackbarShown(false)
     }
 
     function blurHandler(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -95,9 +100,7 @@ function FormSend() {
 
     const keydownHandler = async (e: any) => {
         if (e.key === 'Enter' && e.ctrlKey) await sendMessages()
-
     };
-
 
     React.useEffect(() => {
         document.addEventListener('keydown', keydownHandler);
@@ -105,6 +108,8 @@ function FormSend() {
             document.removeEventListener('keydown', keydownHandler);
         }
     }, [keydownHandler]);
+
+    const [isSnackbarShown, setIsSnackbarShown] = useState(false)
 
     return (
         <Form className="content-center p-4">
@@ -130,6 +135,7 @@ function FormSend() {
                     onClick={sendMessages}>
                 Отправить
             </Button>
+            <Snackbar name={'Загрузилась'} show={isSnackbarShown}/>
         </Form>
     );
 }
