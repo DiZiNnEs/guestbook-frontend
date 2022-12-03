@@ -1,12 +1,17 @@
 import React from "react";
 
+import Row from 'react-bootstrap/Row';
+import Grid from 'react-bootstrap/Col';
+
 function ClientText(props: any) {
     return (
-        <div className='h-56 grid grid-cols-3 gap-4 content-between pt-20 pl-14'>
-            <div className='border-2 border-indigo-600 rounded-lg'>
-                <h2><b>Имя: </b> {props.name}</h2>
-                <h4><b>Текст: </b> {props.text}</h4>
-            </div>
+        <div>
+            <Grid>
+                <div className='mt-20'>
+                <Row className="text-center"><h3>Имя: {props.name}</h3></Row>
+                <Row className="text-center"><h5>Комментарий: {props.text}</h5></Row>
+                </div>
+            </Grid>
         </div>
     )
 }
