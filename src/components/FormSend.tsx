@@ -23,7 +23,7 @@ function FormSend(props: any) {
 
     return (
         <Form className="content-center p-4 text-center">
-            <h1>{username}</h1>
+            <Snackbar name={'Загрузка...'} show={isSnackbarShown}/>
             <Form.Group className="mb-3">
                 <Form.Label className='col-sm-2 col-form-label col-form-label-lg'>Ваше имя</Form.Label>
                 <Form.Control type="text" name='username' value={username} onBlur={e => blurHandler(e)}
@@ -45,7 +45,6 @@ function FormSend(props: any) {
                     onClick={sendMessages}>
                 Отправить
             </Button>
-            <Snackbar name={'Загрузка...'} show={isSnackbarShown}/>
         </Form>
     );
 }
