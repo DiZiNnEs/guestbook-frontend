@@ -15,17 +15,12 @@ function useForm(props: any) {
     const [formValid, setFormValid] = useState(false)
 
     useEffect(() => {
-        console.log({usernameError})
-        console.log({commentError})
         if (usernameError || commentError) {
             setFormValid(false)
-            console.log('поставлися', false)
         } else {
             setFormValid(true)
-            console.log('поставлися', true)
         }
 
-        console.log(formValid, 'validForm')
     }, [usernameError, commentError, formValid])
 
     async function sendMessages() {
@@ -42,12 +37,10 @@ function useForm(props: any) {
             })
 
             if (response.status === 200) {
-                console.log('Данные успешно добавлены')
                 setComment('')
                 props.parentCallback(response.data);
 
             } else {
-                console.log('Данные не были добавлены')
             }
         }
 
@@ -55,7 +48,6 @@ function useForm(props: any) {
     }
 
     function blurHandler(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        console.log(e)
         switch (e.target.name) {
             case 'username':
                 setUsernameDirty(true)

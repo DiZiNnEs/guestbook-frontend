@@ -14,7 +14,6 @@ function useMessages(): { messages: IComments[], setMessages: React.Dispatch<Rea
         try {
             setLoading(true)
             const result = await axios.get<IComments[]>(`${apiEndpoint}/api/v1/comments`)
-            console.log(result)
             setMessages(result.data)
         } catch (e: unknown) {
             const error = e as AxiosError

@@ -24,7 +24,7 @@ function FormSend(props: any) {
     return (
         <Form className="content-center p-4 text-center">
             <h1>{username}</h1>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3">
                 <Form.Label className='col-sm-2 col-form-label col-form-label-lg'>Ваше имя</Form.Label>
                 <Form.Control type="text" name='username' value={username} onBlur={e => blurHandler(e)}
                               onChange={(event) => {
@@ -32,7 +32,7 @@ function FormSend(props: any) {
                               }}/>
                 {(usernameDirty && usernameError) && <p className='text-danger'>{usernameError}</p>}
             </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Group className="mb-3">
                 <Form.Label className='col-sm-2 col-form-label col-form-label-lg'>Ваш комментарий</Form.Label>
                 <Form.Control as="textarea" name='comment' rows={5}
                               onBlur={e => blurHandler(e)}
