@@ -14,6 +14,7 @@ function FormSend(props: any) {
         commentError,
         formValid,
         isSnackbarShown,
+        snackbarMessage,
         blurHandler,
         usernameHandler,
         commentHandler,
@@ -23,7 +24,7 @@ function FormSend(props: any) {
 
     return (
         <Form className="content-center p-4 text-center">
-            <Snackbar name={'Загрузка...'} show={isSnackbarShown}/>
+            <Snackbar name={snackbarMessage} show={isSnackbarShown}/>
             <Form.Group className="mb-3">
                 <Form.Label className='col-sm-2 col-form-label col-form-label-lg'>Ваше имя</Form.Label>
                 <Form.Control type="text" name='username' value={username} onBlur={e => blurHandler(e)}

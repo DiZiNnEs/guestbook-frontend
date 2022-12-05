@@ -12,20 +12,23 @@ function useForm(props: any) {
     const [usernameError, setUsernameError] = useState('Имя пользователя не может быть пустым')
     const [commentError, setCommentError] = useState('Комментарий не может быть пустым')
 
-    const [formValid, setFormValid] = useState(false)
+    const [isSnackbarShown, setIsSnackbarShown] = useState(false)
+    const [snackbarMessage, setSnackbarMessage] = useState('Загрузка...')
+
+    const [isFormValid, setIsFormValid] = useState(false)
 
     useEffect(() => {
         if (usernameError || commentError) {
-            setFormValid(false)
+            setIsFormValid(false)
         } else {
-            setFormValid(true)
+            setIsFormValid(true)
         }
 
-    }, [usernameError, commentError, formValid])
+    }, [usernameError, commentError, isFormValid])
 
     async function sendMessages() {
         setIsSnackbarShown(true)
-        if (formValid) {
+        if (isFormValid) {
             const response = await axios.post(`${apiEndpoint}/api/v1/comments`, {
                 username: username,
                 comments: comment
@@ -39,8 +42,8 @@ function useForm(props: any) {
             if (response.status === 200) {
                 setComment('')
                 props.parentCallback(response.data);
-
             } else {
+                setSnackbarMessage('Не удалось загрузить комментарий')
             }
         }
 
@@ -98,10 +101,9 @@ function useForm(props: any) {
         }
     }, [keydownHandler]);
 
-    const [isSnackbarShown, setIsSnackbarShown] = useState(false)
 
 
-    return {username, comment, usernameDirty, commentDirty, usernameError, commentError, formValid, isSnackbarShown, blurHandler, usernameHandler, commentHandler, sendMessages}
+    return {username, comment, usernameDirty, commentDirty, usernameError, commentError, formValid: isFormValid, isSnackbarShown, snackbarMessage, blurHandler, usernameHandler, commentHandler, sendMessages}
 }
 
 export default useForm
