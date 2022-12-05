@@ -21,7 +21,7 @@ function App() {
             </div>
             {loading && <h2 className='text-center'>Loading...</h2>}
             {error && <h2 className='text-center text-danger'>{error}</h2>}
-            {messages.map((msg: IComments, i: number) => <ClientText name={msg.username} text={msg.text} key={i}/>)}
+            {messages.map((msg: IComments, i: number) => <ClientText name={msg.username} comment={msg.comment} key={i}/>)}
         </div>
     );
 }

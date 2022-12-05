@@ -32,7 +32,7 @@ function useForm(props: { parentCallback: (childData: IComments) => void; }) {
         if (isFormValid) {
             const response = await axios.post(`${apiEndpoint}/api/v1/comments`, {
                 username: username,
-                comments: comment
+                comment: comment
             }, {
                 headers: {
                     'Content-Type': 'application/json',

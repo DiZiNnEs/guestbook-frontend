@@ -1,5 +1,5 @@
 export interface IComments {
-    text: string
+    comment: string
     username: string
 }
 
