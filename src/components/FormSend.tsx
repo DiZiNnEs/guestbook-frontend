@@ -3,8 +3,9 @@ import {Button} from "react-bootstrap";
 import React from "react";
 import Snackbar from "./tools/Snackbar";
 import useForm from "./hooks/useForm";
+import {IComments} from "../interfaces";
 
-function FormSend(props: any) {
+function FormSend(props: { parentCallback: (childData: IComments) => void; }) {
     const {
         username,
         comment,

@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {apiEndpoint} from "../../cfg";
+import {IComments} from "../../interfaces";
 
-function useForm(props: any) {
+function useForm(props: { parentCallback: (childData: IComments) => void; }) {
     const [username, setUsername] = useState('')
     const [comment, setComment] = useState('')
 
@@ -90,7 +91,7 @@ function useForm(props: any) {
         }
     }
 
-    const keydownHandler = async (e: any) => {
+    const keydownHandler = async (e: KeyboardEvent) => {
         if (e.key === 'Enter' && e.ctrlKey) await sendMessages()
     };
 

@@ -2,8 +2,9 @@ import React from "react";
 
 import Row from 'react-bootstrap/Row';
 import Grid from 'react-bootstrap/Col';
+import {IComments} from "../interfaces";
 
-function ClientText(props: any) {
+function ClientText(props: {name: string, text: string}) {
     return (
         <div>
             <Grid>

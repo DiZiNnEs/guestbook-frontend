@@ -10,7 +10,7 @@ function App() {
 
     const {messages, setMessages, loading, error} = useMessages()
 
-    function updateMessages(childData: any) {
+    function updateMessages(childData: IComments) {
         setMessages((oldMessages) => [childData, ...oldMessages]);
     }
 
